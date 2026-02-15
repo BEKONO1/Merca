@@ -1,0 +1,228 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                                                                             ║
+║  📊 DIAGNOSTIC: Erreur "composer/php not found" sur Windows                ║
+║                                                                             ║
+║  ✅ ANALYSE COMPLÈTE + SOLUTIONS                                           ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+═════════════════════════════════════════════════════════════════════════════
+🔴 ERREUR REÇUE
+═════════════════════════════════════════════════════════════════════════════
+
+Command:  composer install
+Error:    "Le terme «composer» n'est pas reconnu comme nom d'applet de commande"
+
+Command:  php -v
+Error:    "Le terme «php» n'est pas reconnu comme nom d'applet de commande"
+
+═════════════════════════════════════════════════════════════════════════════
+✅ CE QUI A DÉJÀ ÉTÉ VÉRIFIÉ
+═════════════════════════════════════════════════════════════════════════════
+
+✓ composer.phar existe dans le dossier
+✓ vendor/ existe avec dépendances
+✓ phpdotenv est déjà installé dans vendor/vlucas/
+✓ composer.json est à jour avec 8 extensions PHP
+
+CONCLUSION: Les dépendances Composer sont OK!
+
+
+═════════════════════════════════════════════════════════════════════════════
+🔴 PROBLÈME IDENTIFIÉ
+═════════════════════════════════════════════════════════════════════════════
+
+PHP n'est PAS installé sur votre système Windows
+OU
+PHP est installé mais PAS ajouté au PATH Windows
+
+PATH = Variable Windows qui dit où chercher les commandes
+Sans PHP dans le PATH, Windows ne peut pas trouver "php" ou "composer"
+
+
+═════════════════════════════════════════════════════════════════════════════
+✨ SOLUTIONS (À CHOISIR UNE)
+═════════════════════════════════════════════════════════════════════════════
+
+┌─ SOLUTION 1: Script PowerShell AUTOMATIQUE (RECOMMANDÉ)
+│  
+│  1. Cherchez le dossier:
+│     - C:\xampp          (XAMPP installé?)
+│     - C:\wamp64         (WAMP installé?)
+│     - C:\laragon        (Laragon installé?)
+│  
+│  2. Si un de ces dossiers existe, exécutez:
+│     Clic droit sur: install-php-composer.ps1
+│     → "Exécuter avec PowerShell"
+│  
+│  3. Si aucun dossier trouvé:
+│     - Installer XAMPP d'abord (5 min)
+│     - Puis relancer le script
+│
+├─ SOLUTION 2: Script Batch AUTOMATIQUE
+│  
+│  1. Clic droit sur: install-php-win.bat
+│  2. "Exécuter en tant qu'administrateur"
+│  3. Laissez-le configurer automatiquement
+│
+├─ SOLUTION 3: Chocolatey (RAPIDE)
+│  
+│  1. PowerShell en tant qu'administrateur
+│  2. Tapez: choco install php composer
+│  3. Attendez 2 minutes
+│
+└─ SOLUTION 4: XAMPP Manuel
+   
+   1. Télécharger: https://www.apachefriends.org
+   2. Installer dans C:\xampp
+   3. Exécuter Solution 1 ou 2
+
+
+═════════════════════════════════════════════════════════════════════════════
+📋 ÉTAPES POUR CHAQUE SOLUTION
+═════════════════════════════════════════════════════════════════════════════
+
+SOLUTION 1: PowerShell Script (Plus moderne)
+─────────────────────────────────────────────
+
+Étape 1: Vérifie s'il existe XAMPP/WAMP/Laragon
+Étape 2: Ajoute automatiquement au PATH
+Étape 3: Télécharge composer.phar si nécessaire
+Étape 4: Affiche les prochaines étapes
+
+Exécution:
+  Clic droit sur: install-php-composer.ps1
+  → "Exécuter avec PowerShell"
+
+
+SOLUTION 2: Batch Script (Classique Windows)
+──────────────────────────────────────────────
+
+Même chose que Solution 1, mais en batch
+
+Exécution:
+  Clic droit sur: install-php-win.bat
+  → "Exécuter en tant qu'administrateur"
+
+
+SOLUTION 3: Chocolatey (Ligne de commande)
+───────────────────────────────────────────
+
+Prérequis: avoir Chocolatey installé
+           Si pas sûr, tapez: choco --version
+
+Exécution:
+  PowerShell EN TANT QU'ADMINISTRATEUR
+  Tapez: choco install php composer
+  Attendez...
+
+
+═════════════════════════════════════════════════════════════════════════════
+🎯 APRÈS INSTALLATION: VÉRIFICATION
+═════════════════════════════════════════════════════════════════════════════
+
+1️⃣  Fermer PowerShell/CMD complètement
+2️⃣  Rouvrir PowerShell ou CMD
+3️⃣  Exécuter:
+
+    php -v              # Devrait montrer la version PHP (8.2+)
+    composer --version  # Devrait montrer la version Composer
+
+
+═════════════════════════════════════════════════════════════════════════════
+🔧 SI L'INSTALLATION ÉCHOUE
+═════════════════════════════════════════════════════════════════════════════
+
+❌ "Installation scripts not found"
+→ Vous êtes peut-être dans le mauvais dossier
+→ Allez dans: C:\Users\Antoine\Music\boutique\admin\Code v3.2.0
+
+❌ "Access Denied" 
+→ Relancer en tant qu'administrateur
+→ Clic droit → "Exécuter en tant qu'administrateur"
+
+❌ "PHP not found"
+→ XAMPP/WAMP/Laragon ne sont pas trouvés
+→ Installer manuellement depuis https://www.apachefriends.org
+
+❌ "Still getting 'php not found' after install"
+→ Redémarrer Windows (oui, vraiment!)
+→ Ou redémarrer PowerShell au minimum
+
+
+═════════════════════════════════════════════════════════════════════════════
+📚 FICHIERS DE DOCUMENTATION CRÉÉS
+═════════════════════════════════════════════════════════════════════════════
+
+FILE                              PURPOSE
+────────────────────────────────────────────────────────────────────────────
+DÉMARRER-ICI.txt                  ← Lisez ça d'abord! (3 étapes)
+FIX-PHP-COMPOSER-NOT-FOUND.txt    Questions/réponses complètes
+INSTALL-PHP-COMPOSER.md           Guide détaillé pour toutes situations
+COMPOSER-README.txt               Résumé des mises à jour Composer
+
+install-php-composer.ps1          Script PowerShell (RECOMMANDÉ)
+install-php-win.bat               Script Batch (Alternative)
+
+COMPOSER-DEPENDENCIES.md          Guide complet extensions PHP
+PHPDOTENV-INTEGRATION.md          Comment .env fonctionne
+
+test-dependencies.php             Validez la configuration après install
+test-logging.php                  Validez le logging
+
+
+═════════════════════════════════════════════════════════════════════════════
+💾 RÉSUMÉ: CE QUI DOIT SE PASSER
+═════════════════════════════════════════════════════════════════════════════
+
+AVANT:  composer install
+         ↓
+        ❌ "composer : Le terme «composer» n'est pas reconnu"
+        
+INSTALLATION:
+         ↓
+        Exécuter: install-php-composer.ps1 (ou install-php-win.bat)
+        
+APRÈS:   Redémarrer PowerShell/CMD
+         ↓
+        composer install
+         ↓
+        ✅ "Installing dependencies... Done!"
+        ✓ phpdotenv chargé
+        ✓ CodeIgniter 3 téléchargé
+        ✓ composer.lock généré
+
+
+═════════════════════════════════════════════════════════════════════════════
+🚀 UNE FOIS PHP INSTALLÉ: PROCHAIN CHECKLIST
+═════════════════════════════════════════════════════════════════════════════
+
+□ composer install                      # Mettre à jour dépendances
+□ php test-dependencies.php             # Valider configuration
+□ copy .env.example .env                # Créer fichier local config
+□ php test-logging.php                  # Valider logging
+□ composer serve                        # Lancer serveur local
+   (ou: php -S localhost:8000 -t public/)
+
+
+═════════════════════════════════════════════════════════════════════════════
+📞 BESOIN D'AIDE?
+═════════════════════════════════════════════════════════════════════════════
+
+Si quelque chose échoue:
+
+1. Dites-moi le message d'erreur exact
+2. Quel système d'exploitation (Windows 10/11)
+3. Avez-vous XAMPP/WAMP/Laragon?
+4. Où sont-ils installés?
+
+Avec ces infos, je peux configurer correctement le PATH
+
+
+═════════════════════════════════════════════════════════════════════════════
+
+Prêt? Commencez par: DÉMARRER-ICI.txt
+
+C'est 3 étapes simples et vous aurez PHP + Composer fonctionnels! ✅
+
+═════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Application PHP eShop - Production
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eshop-app-prod
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: production
+      APP_ENV: production
+      APP_DEBUG: "false"
+      # DATABASE_URL doit être définie dans les variables d'environnement du système
+      # Exemple: DATABASE_URL=mysql://user:pass@host:port/db
+    depends_on:
+      db:
+        condition: service_healthy
+    # Les volumes ne sont PAS synchronisés en production
+    volumes:
+      # Seulement le stockage (logs, cache, uploads)
+      - app-storage:/app/storage
+      - app-uploads:/app/public/uploads
+    networks:
+      - eshop-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    command: php -S 0.0.0.0:${PORT:-8000} -t public/
+
+  # Base de données MySQL - Production
+  db:
+    image: mysql:8.0
+    container_name: eshop-db-prod
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      # Persister les données
+      - mysql-data-prod:/var/lib/mysql
+      # Sauvegardes quotidiennes
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+    networks:
+      - eshop-network
+    # Limiter les ressources
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '1'
+          memory: 512M
+
+volumes:
+  mysql-data-prod:
+    driver: local
+  app-storage:
+    driver: local
+  app-uploads:
+    driver: local
+
+networks:
+  eshop-network:
+    driver: bridge

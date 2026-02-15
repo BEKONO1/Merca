@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Dépendances
+node_modules/
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & Storage
+storage/logs/*
+storage/cache/*
+storage/sessions/*
+storage/temp/*
+
+# Uploads
+public/uploads/*
+
+# Documentation
+*.md
+*.txt
+
+# Tests
+tests/
+phpunit.xml
+.phpunit.result.cache
+
+# Build
+dist/
+build/
+output/
+
+# Temporary
+*.tmp
+*.bak
+*.backup
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml

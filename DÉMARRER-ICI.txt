@@ -1,0 +1,68 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    ⚡ SOLUTION RAPIDE EN 3 ÉTAPES
+═══════════════════════════════════════════════════════════════════════════════
+
+SITUATION: composer.phar existe, phpdotenv est déjà installé, 
+seul PHP manque dans le PATH
+
+
+ÉTAPE 1: INSTALLEZPHP (3-5 minutes)
+───────────────────────────────────────────────────────────────────────────────
+
+❓ AVEZ-VOUS XAMPP, WAMP OU LARAGON?
+
+   Cherchez le dossier:
+   • C:\xampp        (XAMPP)
+   • C:\wamp64       (WAMP)  
+   • C:\laragon      (Laragon)
+
+✅ SI OUI  → Allez directement à ÉTAPE 2
+❌ SI NON  → Installez d'abord (5 min):
+             https://www.apachefriends.org/download.html
+             Puis venez à ÉTAPE 2
+
+
+ÉTAPE 2: EXÉCUTEZ LE SCRIPT D'INSTALLATION
+───────────────────────────────────────────────────────────────────────────────
+
+   1. Dans l'Explorateur Windows
+   2. Naviguer vers: C:\Users\Antoine\Music\boutique\admin\Code v3.2.0
+   3. Clic droit sur: install-php-win.bat
+   4. "Exécuter en tant qu'administrateur"
+   5. Attendez le message de confirmation
+   6. Fermez la fenêtre
+
+✅ PHP + Composer seront ajoutés au PATH automatiquement
+
+
+ÉTAPE 3: TESTEZ ET CONTINUEZ
+───────────────────────────────────────────────────────────────────────────────
+
+   # Redémarrez PowerShell/CMD d'abord!
+   
+   php -v                 # Vérifier PHP installé ✓
+   composer --version     # Vérifier Composer ✓
+   
+   # Puis, dans le dossier Code v3.2.0:
+   composer install       # ✓ Devrait fonctionner maintenant
+   php test-dependencies.php    # Valide la configuration
+   
+
+═══════════════════════════════════════════════════════════════════════════════
+
+TL;DR:
+1. install-php-win.bat (clic droit → admin)
+2. Redémarrez PowerShell
+3. composer install
+4. ✅ C'est tout!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Fichiers créés pour vous:
+  
+  ✓ install-php-win.bat            → Automatise tout
+  ✓ INSTALL-PHP-COMPOSER.md        → Guide complet
+  ✓ FIX-PHP-COMPOSER-NOT-FOUND.txt → Plus de détails
+  ✓ COMPOSER-README.txt            → Résumé Composer
+
+═══════════════════════════════════════════════════════════════════════════════

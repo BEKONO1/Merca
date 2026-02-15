@@ -1,0 +1,36 @@
+{
+    "name": "eshop/multi-vendor-marketplace",
+    "description": "eShop - Multi Vendor eCommerce Marketplace CMS",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "jaysparmar/codeigniter3": "1.0.9",
+        "vlucas/phpdotenv": "^5.6",
+        "ext-curl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-zip": "*",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ci3\\": "application/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "serve": "php -S localhost:8000 -t public/",
+        "migrate": "php src/Database/migrate.php",
+        "post-install-cmd": [
+            "@migrate"
+        ]
+    }
+}

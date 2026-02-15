@@ -1,0 +1,177 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                                                                             ║
+║              🔴 ERREUR: PHP/Composer non trouvés dans le PATH              ║
+║                                                                             ║
+║              ✅ SOLUTION RAPIDE (3 minutes)                                ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+📌 SITUATION ACTUELLE
+═════════════════════════════════════════════════════════════════════════════
+
+❌ Error: "composer : Le terme «composer» n'est pas reconnu"
+❌ Error: "php : Le terme «php» n'est pas reconnu"
+
+✅ BONNE NOUVELLE:
+   - composer.phar existe déjà ✓
+   - vendor/ et dépendances existent ✓
+   - phpdotenv est déjà installé ✓
+   
+⚠️  PROBLÈME: PHP n'est pas dans le PATH Windows
+
+
+═════════════════════════════════════════════════════════════════════════════
+🚀 SOLUTION IMMÉDIATE (CHOSE À FAIRE D'ABORD)
+═════════════════════════════════════════════════════════════════════════════
+
+1️⃣  Avez-vous XAMPP, WAMP, ou Laragon installé?
+
+    XAMPP: C:\xampp    (vérifiez si le dossier existe)
+    WAMP:  C:\wamp64   (vérifiez si le dossier existe)
+    
+    ✅ Si OUI → Allez à l'ÉTAPE 2
+    ❌ Si NON → Allez à l'ÉTAPE 3
+
+═════════════════════════════════════════════════════════════════════════════
+2️⃣  SI VOUS AVEZ DÉJÀ XAMPP/WAMP (OPTION LA PLUS RAPIDE)
+═════════════════════════════════════════════════════════════════════════════
+
+A. Ouvrir le fichier: install-php-win.bat (dans ce dossier)
+
+B. Clic droit → "Exécuter en tant qu'administrateur"
+
+C. Le script:
+   ✅ Détectera votre installation PHP
+   ✅ L'ajoutera automatiquement au PATH
+   ✅ Vous pourrez utiliser "php" et "composer" partout
+
+D. Redémarrez PowerShell/CMD
+
+E. Testez:
+   php -v
+   composer --version
+
+═════════════════════════════════════════════════════════════════════════════
+3️⃣  SI VOUS N'AVEZ PAS ENCORE XAMPP (5-MINUTE RAPIDE)
+═════════════════════════════════════════════════════════════════════════════
+
+Option A: Installer avec Chocolatey (Si vous l'avez)
+─────────────────────────────────────────────────────
+Ouvrir PowerShell EN ADMINISTRATEUR:
+
+   choco install php composer
+
+C'est tout! (5 minutes max)
+
+
+Option B: Installer XAMPP (Vous voulez aussi un serveur web)
+────────────────────────────────────────────────────────────
+
+1. Télécharger: https://www.apachefriends.org/download.html
+2. Choisir: "XAMPP for Windows (PHP 8.3)"  ← ou 8.2
+3. Installer dans: C:\xampp (dossier par défaut)
+4. Lancer ce script: install-php-win.bat
+   (Clic droit → Exécuter en tant qu'administrateur)
+5. Redémarrez PowerShell/CMD
+6. Testez: php -v
+
+
+Option C: Installer Laragon (Plus léger)
+──────────────────────────────────────────
+
+1. Télécharger: https://laragon.org/download.html
+2. Installer dans C:\laragon (dossier par défaut)
+3. Exécuter ce script: install-php-win.bat
+4. Redémarrez PowerShell/CMD
+5. Testez: php -v
+
+
+═════════════════════════════════════════════════════════════════════════════
+✅ APRÈS INSTALLATION: ÉTAPES SUIVANTES
+═════════════════════════════════════════════════════════════════════════════
+
+Une fois PHP disponible, exécutez dans ce dossier:
+
+   composer install
+   
+   php test-dependencies.php     # ← Valide TOUT
+   
+   copy .env.example .env        # Créer fichier local config
+   
+   notepad .env                  # Éditer avec vos valeurs
+
+Puis testez le logging:
+
+   php test-logging.php
+
+
+═════════════════════════════════════════════════════════════════════════════
+🔧 SI VOUS SAVEZ OÙ PHP EST INSTALLÉ
+═════════════════════════════════════════════════════════════════════════════
+
+Éditer le fichier: install-php-win.bat
+
+Ligne 45 environ, changez:
+
+   set "php_path=C:\xampp\php"
+
+À votre chemin réel, par exemple:
+
+   set "php_path=C:\DevEnv\PHP\8.3"
+
+Sauvegardez et relancez le script.
+
+
+═════════════════════════════════════════════════════════════════════════════
+❓ QUESTIONS COURANTES
+═════════════════════════════════════════════════════════════════════════════
+
+Q: "J'ai Composer installé localement, pourquoi ça marche pas?"
+R: Composer a besoin de PHP. Installer PHP d'abord (voir ÉTAPE 3)
+
+Q: "Dois-je vraiment installer PHP/XAMPP?"
+R: OUI. PHP est obligatoire pour utiliser Composer et exécuter le code
+
+Q: "Quel version PHP?"
+R: 8.2 ou 8.3 minimum (projet demande ^8.2)
+
+Q: "composer install dit "Nothing to install""
+R: C'est normal! Les dépendances sont déjà dans vendor/
+   Composer a juste besoin de vérifier tout est à jour
+
+Q: "Que fait install-php-win.bat?"
+R: Il cherche votre installation PHP et l'ajoute au PATH Windows
+
+Q: "Ça va ralentir mon ordi?"
+R: Non. XAMPP/PHP sont légers. Laragon est plus léger que XAMPP.
+
+═════════════════════════════════════════════════════════════════════════════
+💡 RACCOURCI: SI VOUS ÊTES PRESSÉ
+═════════════════════════════════════════════════════════════════════════════
+
+1. Clic droit sur PowerShell
+2. "Exécuter en tant qu'administrateur"
+3. Collez: choco install php composer
+4. Appuyez sur Entrée
+5. Attendez 2 minutes
+6. Fermez et relancez PowerShell
+7. Testez: php -v et composer --version
+
+C'est tout! ✅
+
+═════════════════════════════════════════════════════════════════════════════
+🔗 LIENS UTILES
+═════════════════════════════════════════════════════════════════════════════
+
+XAMPP:   https://www.apachefriends.org/
+Laragon: https://laragon.org/
+Composer: https://getcomposer.org/
+PHP:     https://www.php.net/
+
+═════════════════════════════════════════════════════════════════════════════
+
+Vous avez besoin d'aide? Dites-moi:
+1. Avez-vous XAMPP/WAMP/Laragon installé?
+2. Où est-il installé?
+
+Ensuite je peux vous aider à configurer le PATH correctement!

@@ -1,0 +1,29 @@
+⚡ SOLUTION ULTRA-RAPIDE
+════════════════════════════════════════════════════════════════════════════
+
+PROBLÈME:
+  composer install
+  → ❌ "Le terme «composer» n'est pas reconnu"
+
+SOLUTION (2 minutes):
+
+  1️⃣  Avoir XAMPP/WAMP installé? (C:\xampp ou C:\wamp64 existe?)
+      ✅ OUI  → Allez à étape 2
+      ❌ NON  → Installer d'abord (5 min): https://www.apachefriends.org
+
+  2️⃣  Clic droit sur: install-php-composer.ps1
+      → "Exécuter avec PowerShell"
+      (ou install-php-win.bat si préférez batch)
+
+  3️⃣  Fermez PowerShell, rouvrez-le
+      Testez: php -v
+              composer --version
+              composer install  ← Devrait fonctionner ✓
+
+═════════════════════════════════════════════════════════════════════════════
+
+Si ça ne marche pas:
+  → Lire: DIAGNOSTIC-COMPLET.txt
+  → Ou: FIX-PHP-COMPOSER-NOT-FOUND.txt
+
+═════════════════════════════════════════════════════════════════════════════

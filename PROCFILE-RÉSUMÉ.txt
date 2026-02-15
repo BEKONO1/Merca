@@ -1,0 +1,69 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                                                                             ║
+║                🎯 PROCFILE POUR E-BOUTIQUE: RÉSUMÉ EXÉCUTIF              ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+FICHIER:     Procfile
+CONTENU:     web: heroku-php-apache2 public/
+CRÉÉ:        ✅ À la racine du projet
+
+═════════════════════════════════════════════════════════════════════════════
+❓ QUESTION: Lequel choisir pour une boutique avec .htaccess?
+═════════════════════════════════════════════════════════════════════════════
+
+❌ MAUVAIS CHOIX:  web: php -S 0.0.0.0:$PORT -t public/
+✅ BON CHOIX:     web: heroku-php-apache2 public/  ← VOUS AVEZ CELUI-CI
+
+
+═════════════════════════════════════════════════════════════════════════════
+✅ POURQUOI APACHE2 EST NÉCESSAIRE
+═════════════════════════════════════════════════════════════════════════════
+
+E-boutique CodeIgniter = besoin de réécriture d'URL
+Réécriture d'URL = besoin de .htaccess
+.htaccess = besoin d'Apache2 avec mod_rewrite
+
+SANS APACHE:
+  URL: /products/123
+  Résultat: 404 NOT FOUND (routes cassées) ❌
+
+AVEC APACHE:
+  URL: /products/123
+  Réécriture: index.php?url=products/123
+  Résultat: Page produit s'affiche ✅
+
+
+═════════════════════════════════════════════════════════════════════════════
+📊 COMPARAISON ULTRA-RAPIDE
+═════════════════════════════════════════════════════════════════════════════
+
+heroku-php-apache2:          php -S:
+├─ ✅ .htaccess support      ├─ ❌ .htaccess /
+├─ ✅ mod_rewrite            ├─ ❌ No rewrite
+├─ ✅ Production-ready       ├─ ❌ Dev only
+├─ ✅ Performance max        ├─ ❌ Single-thread
+└─ ✅ E-commerce ready       └─ ❌ Breaks routes
+
+
+═════════════════════════════════════════════════════════════════════════════
+🎯 VERDICT
+═════════════════════════════════════════════════════════════════════════════
+
+La configuration créée est PARFAITE pour votre boutique ✅
+
+   web: heroku-php-apache2 public/
+
+Votre .htaccess sera:
+  • Détecté par Apache
+  • Appliqué automatiquement
+  • Vos routes CodeIgniter fonctionneront
+  • Performance optimisée
+
+═════════════════════════════════════════════════════════════════════════════
+📚 POUR PLUS DE DÉTAILS
+═════════════════════════════════════════════════════════════════════════════
+
+Lire: PROCFILE-EXPLICATION.md (dans ce dossier)
+
+═════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,88 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                                                                             ║
+║              🗄️  MIGRATION SYSTEM - TL;DR                                 ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+CRÉÉ:
+═════════════════════════════════════════════════════════════════════════════
+
+✅ src/Database/migrate.php
+   └─ Script qui exécute les migrations SQL
+
+✅ application/migrations/ (dossier)
+   └─ Mettez vos fichiers .sql ici
+
+✅ application/migrations/001_example_schema.sql
+   └─ Exemple de migration
+
+✅ docker-entrypoint.sh
+   └─ Lance migrations avant le serveur
+
+✅ 2 fichiers de documentation
+
+
+MODIFIÉ:
+═════════════════════════════════════════════════════════════════════════════
+
+✏️ composer.json
+   └─ Ajout: "migrate": "php src/Database/migrate.php"
+   └─ Ajout: "post-install-cmd": ["@migrate"]
+   → Les migrations lancent automatiquement après composer install
+
+✏️ Dockerfile
+   └─ Ajout: docker-entrypoint.sh
+   └─ Ajout: RUN php src/Database/migrate.php
+   → Les migrations lancent pendant build ET au startup
+
+
+USAGE:
+═════════════════════════════════════════════════════════════════════════════
+
+CRÉER UNE MIGRATION: application/migrations/002_something.sql
+
+LANCER MANUEL:
+  php src/Database/migrate.php
+
+LANCER VIA COMPOSER:
+  composer migrate
+
+LANCER AUTOMATIQUE:
+  composer install     (post-install-cmd)
+  docker-compose up    (entrypoint)
+  git push to Railway  (Dockerfile build phase)
+
+
+EXEMPLE SQL:
+═════════════════════════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+COMMENT ÇA MARCHE:
+═════════════════════════════════════════════════════════════════════════════
+
+1. Fichiers .sql lus dans application/migrations/
+2. Exécutés dans l'ordre alphabétique
+3. Tracking table `migrations` empêche les doublons
+4. Safe à relancer n'importe quand (idempotent)
+
+
+PROCHAINES ÉTAPES:
+═════════════════════════════════════════════════════════════════════════════
+
+1. Créer vos migrations dans application/migrations/
+2. Exécuter: php src/Database/migrate.php
+3. Vérifier: SELECT * FROM migrations;
+4. Commit et push
+
+
+═════════════════════════════════════════════════════════════════════════════
+
+LIRE: MIGRATION-SYSTEM.md pour les détails complets
+
+═════════════════════════════════════════════════════════════════════════════
