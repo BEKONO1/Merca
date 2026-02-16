@@ -90,8 +90,7 @@ COPY . /var/www/html
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
-    --no-interaction \
-    --prefer-stable
+    --no-interaction
 
 # ============================================================================
 # ÉTAPE 8: Exécuter les migrations de base de données
