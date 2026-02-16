@@ -30,10 +30,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
     pdo_mysql \
+    mysqli \
     gd \
     zip \
     intl \
-    && docker-php-ext-enable pdo_mysql gd zip intl
+    && docker-php-ext-enable pdo_mysql mysqli gd zip intl
 
 # ============================================================================
 # ÉTAPE 3: Configurer PHP pour le logging
