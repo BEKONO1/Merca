@@ -1,0 +1,4 @@
+# Force Railway to use Docker instead of Heroku buildpack
+[build]
+builder = "docker"
+dockerfile = "Dockerfile"
