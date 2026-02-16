@@ -52,16 +52,16 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # ÉTAPE 5: Configurer Apache
 # ============================================================================
 
-# 5a. Définir DocumentRoot sur /var/www/html/public
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
+# 5a. Définir DocumentRoot sur /var/www/html (racine du projet)
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html|g' \
     /etc/apache2/sites-available/000-default.conf
 
 # 5b. Activer les modules Apache nécessaires
 RUN a2enmod rewrite headers
 
 # 5c. Créer configuration Apache pour l'application
-RUN echo '<Directory /var/www/html/public>\n\
-    Options -MultiViews\n\
+RUN echo '<Directory /var/www/html>\n\
+    Options -Indexes +FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
 \n\
@@ -99,16 +99,17 @@ RUN composer install \
 RUN php src/Database/migrate.php || echo "ℹ️  Migrations non disponibles (peut être normal en first build)"
 
 # ============================================================================
-# ÉTAPE 9: Créer les répertoires de stockage
+# ÉTAPE 9: Créer les répertoires de stockage et configurer permissions
 # ============================================================================
 
 RUN mkdir -p storage/logs \
     && mkdir -p storage/cache \
     && mkdir -p storage/sessions \
     && mkdir -p storage/temp \
-    && mkdir -p public/uploads \
+    && mkdir -p uploads \
     && chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 storage public/uploads public
+    && chmod -R 755 /var/www/html \
+    && chmod -R 775 storage uploads
 
 # ============================================================================
 # ÉTAPE 10: Port HTTP standard
