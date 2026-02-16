@@ -79,6 +79,7 @@ $db['default'] = array(
 	'username' => '%USERNAME%',
 	'password' => '%PASSWORD%',
 	'database' => '%DATABASE%',
+	'port'     => 3306,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

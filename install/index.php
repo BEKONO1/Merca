@@ -93,6 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
                     </div>
 
                     <div class="form-group">
+                        <label for="port">Database Port <small class="text-danger">*</small></label>
+                        <input type="text" id="port" value="3306" class="form-control" name="port" />
+                        <p class="help-block">Your Database Port (default: 3306, Railway: 56121).</p>
+                    </div>
+
+                    <div class="form-group">
                         <label for="username">Database Username <small class="text-danger">*</small></label>
                         <input type="text" id="username" class="form-control" name="username" />
                         <p class="help-block">Your Username.</p>

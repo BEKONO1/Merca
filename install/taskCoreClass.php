@@ -39,6 +39,8 @@ class Core
 			$new  = str_replace("%USERNAME%", $data['username'], $new);
 			$new  = str_replace("%PASSWORD%", $data['password'], $new);
 			$new  = str_replace("%DATABASE%", $data['database'], $new);
+			$port = isset($data['port']) ? (int)$data['port'] : 3306;
+			$new  = str_replace("'port'     => 3306,", "'port'     => " . $port . ",", $new);
 
 			if (fwrite($handle, $new)) {
 				return true;
