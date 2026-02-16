@@ -1,72 +1,71 @@
 RewriteEngine on
 
-# Ne pas réécrire les fichiers et dossiers existants
-RewriteCond %{REQUEST_FILENAME} -f [OR]
+# ============================================
+# RÈGLES DE RÉÉCRITURE - TRÈS PERMISSIVES
+# ============================================
+
+# 1. Ne pas réécrire les fichiers existants (CSS, JS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# 2. Ne pas réécrire les dossiers existants
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Ne pas réécrire les assets, uploads et fichiers statiques
-RewriteCond $1 !^(index\.php|resources|robots\.txt|reset-admin\.php|assets|uploads|storage)
+# 3. Ne pas réécrire les ressources statiques (tous types de fichiers)
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|mp4|webm|mp3|pdf|zip|xml|json|txt)$ [NC]
+RewriteRule ^ - [L]
+
+# 4. Réécrire tout le reste vers index.php (routes de l'application)
+RewriteCond $1 !^(index\.php|install|assets|uploads|storage|vendor|system|application|resources|robots\.txt|favicon\.ico|\.well-known)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+# ============================================
+# EN-TÊTES ET CONFIGURATION
+# ============================================
+
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
-Options -Indexes
+# Autoriser l'indexation des dossiers (pour debug)
+Options +Indexes
 
+# Autoriser CORS pour tous les fichiers statiques
 <IfModule mod_headers.c>
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires 0
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|mp4|webm|mp3|json|xml)$">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+        Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    </FilesMatch>
+    
+    # Cache pour les fichiers statiques (1 mois)
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot)$">
+        Header set Cache-Control "public, max-age=2592000"
+        Header set Expires "access plus 1 month"
+    </FilesMatch>
 </IfModule>
-<IfModule mod_headers.c>
-  <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css|css)$">
-    Header set Access-Control-Allow-Origin "*"
-  </FilesMatch>
-</IfModule>
-<FilesMatch "\.(html?|txt|css|js|php|pl)$">
-    SetOutputFilter DEFLATE
- </FilesMatch>
+
+# ============================================
+# COMPRESSION
+# ============================================
+
 <IfModule mod_deflate.c>
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
-    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
-    Header set Access-Control-Allow-Credentials true
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+    
+    # Ne pas compresser les images et fichiers déjà compressés
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|zip|gz|bz2)$ no-gzip dont-vary
 </IfModule>
 
-# Enable CORS
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
-    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    # Respond to preflight requests
-    RewriteEngine On
-    RewriteCond %{REQUEST_METHOD} OPTIONS
-    RewriteRule ^(.*)$ $1 [R=200,L]
-</IfModule>
-# Compress HTML, CSS, JavaScript, Text, XML and fonts
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/rss+xml 
-AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
-AddOutputFilterByType DEFLATE application/x-font 
-AddOutputFilterByType DEFLATE application/x-font-opentype
-AddOutputFilterByType DEFLATE application/x-font-otf
-AddOutputFilterByType DEFLATE application/x-font-truetype
-AddOutputFilterByType DEFLATE application/x-font-ttf
-AddOutputFilterByType DEFLATE application/x-javascript
-AddOutputFilterByType DEFLATE application/xhtml+xml
-AddOutputFilterByType DEFLATE application/xml 
-AddOutputFilterByType DEFLATE font/opentype 
-AddOutputFilterByType DEFLATE font/otf 
-AddOutputFilterByType DEFLATE font/ttf 
-AddOutputFilterByType DEFLATE image/svg+xml 
-AddOutputFilterByType DEFLATE image/x-icon 
-AddOutputFilterByType DEFLATE text/css 
-AddOutputFilterByType DEFLATE text/html 
-AddOutputFilterByType DEFLATE text/javascript 
-AddOutputFilterByType DEFLATE text/plain 
-AddOutputFilterByType DEFLATE text/xml 
-</IfModule>
+# ============================================
+# TYPE MIME
+# ============================================
+
+AddType text/css .css
+AddType application/javascript .js
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+AddType font/woff .woff
+AddType font/ttf .ttf
+AddType font/otf .otf
+
 # php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php73” package as the default “PHP” programming language.
-
-# php -- END cPanel-generated handler, do not edit
+# php -- END cPanel-generated handler
