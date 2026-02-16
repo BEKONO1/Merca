@@ -49,7 +49,6 @@ output/
 *.backup
 
 # Docker
-Dockerfile
 .dockerignore
 docker-compose.yml
 docker-compose.*.yml
