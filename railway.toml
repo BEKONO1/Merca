@@ -7,4 +7,3 @@ numReplicas = 1
 healthcheckPath = "/"
 healthcheckTimeout = 30
 healthcheckInterval = 10
-startCommand = "apache2-foreground"

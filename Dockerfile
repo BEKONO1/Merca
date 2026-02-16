@@ -115,10 +115,13 @@ RUN mkdir -p storage/logs \
 # ============================================================================
 
 # Railway définira le port via la variable d'environnement PORT
-# Apache écoute par défaut sur 80
 EXPOSE 80
 
 # ============================================================================
-# Apache démarre automatiquement
-# Pas besoin de CMD ou ENTRYPOINT car l'image de base les définit
+# ÉTAPE 11: Script d'entrée pour configurer le port dynamique
 # ============================================================================
+
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]

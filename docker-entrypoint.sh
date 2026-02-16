@@ -1,6 +1,5 @@
 #!/bin/bash
-# Docker entrypoint script
-# Runs migrations and then starts the PHP server
+# Docker entrypoint script pour Railway avec Apache
 
 set -e
 
@@ -9,24 +8,28 @@ echo "║              🚀 Application Startup Script                    ║"
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 
-# Get port from environment or use default
-PORT=${PORT:-8000}
+# Utiliser le port défini par Railway (défaut: 80)
+PORT=${PORT:-80}
 
-# Run migrations
-echo "📊 Running database migrations..."
-if php src/Database/migrate.php; then
-    echo "✅ Migrations completed"
+echo "🔧 Configuration d'Apache sur le port ${PORT}..."
+
+# Modifier le port d'écoute Apache
+sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf 2>/dev/null || true
+sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
+
+# Exécuter les migrations
+echo "📊 Exécution des migrations..."
+if php src/Database/migrate.php 2>/dev/null; then
+    echo "✅ Migrations terminées"
 else
-    echo "⚠️  Migrations warnings (application continues)"
+    echo "⚠️  Migrations ignorées (peut être normal)"
 fi
 
 echo ""
-echo "🌍 Starting PHP Development Server"
-echo "   Listening on: 0.0.0.0:$PORT"
-echo "   Document root: public/"
-echo ""
-echo "Press Ctrl+C to stop the server"
+echo "🌍 Démarrage du serveur Apache"
+echo "   Port: ${PORT}"
+echo "   DocumentRoot: /var/www/html/public"
 echo ""
 
-# Start PHP server
-exec php -S 0.0.0.0:${PORT} -t public/
+# Démarrer Apache en premier plan
+exec apache2-foreground
