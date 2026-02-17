@@ -17,7 +17,7 @@ RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf
 RewriteRule ^ - [L]
 
 # 4. Réécrire tout le reste vers index.php (routes de l'application)
-RewriteCond $1 !^(index\.php|install|assets|uploads|storage|vendor|system|application|resources|robots\.txt|favicon\.ico|\.well-known)
+RewriteCond $1 !^(index\.php|install|assets|uploads|storage|vendor|system|application|resources|robots\.txt|favicon\.ico|\.well-known|reset-password\.php|reset-admin\.php)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
 # ============================================
