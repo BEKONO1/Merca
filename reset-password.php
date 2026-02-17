@@ -9,12 +9,12 @@ header('Content-Type: text/plain');
 echo "🔐 Réinitialisation du mot de passe admin\n";
 echo "========================================\n\n";
 
-// Récupérer les variables d'environnement Railway
-$host = getenv('MYSQLHOST');
-$user = getenv('MYSQLUSER');
-$pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQLDATABASE');
-$port = getenv('MYSQLPORT');
+// Récupérer les variables d'environnement Railway (avec valeurs par défaut)
+$host = getenv('MYSQLHOST') ?: 'trolley.proxy.rlwy.net';
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: 'PQgvseAjUOpbmWfnXuKFjLNumsVqjHDQ';
+$db   = getenv('MYSQLDATABASE') ?: 'railway';
+$port = getenv('MYSQLPORT') ?: '56121';
 
 // Afficher la configuration (sans le mot de passe)
 echo "Configuration:\n";
